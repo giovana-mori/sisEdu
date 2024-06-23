@@ -62,6 +62,9 @@ class RegistroController extends Controller
            'role' => $request->role
         ]);
 
+        // dump($user->id);
+        // dd($user);
+
         if ($user->role === 'aluno') {
             Aluno::create([
                 'user_id'=> $user->id,

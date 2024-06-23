@@ -9,6 +9,7 @@ class Aluno extends Model
 {
     use HasFactory;
     protected $fillable = [
+        "id",
         'user_id',
         'ra',
         'cep'
@@ -17,6 +18,10 @@ class Aluno extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function notas(){
+        return $this->hasMany(Notas::class);
     }
 
 }
