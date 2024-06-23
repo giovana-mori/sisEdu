@@ -22,12 +22,16 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            if (auth()->user()->role === 'aluno') {
-                return redirect()->intended('dashboardAluno');
-            } elseif (auth()->user()->role === 'professor') {
-                return redirect()->intended('dashboard');
+            if (auth()->user()->role == 'aluno') {
+                return redirect()->intended('/aluno/dashboardAluno');
+            } elseif (auth()->user()->role == 'professor') {
+                return redirect()->intended('/dashboard');
             }
-
         }
+    }
+
+    public function logout(){
+        Auth::logout();
+        redirect('/');
     }
 }

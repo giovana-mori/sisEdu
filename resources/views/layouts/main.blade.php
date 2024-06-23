@@ -24,10 +24,19 @@
 <header class="flex justify-between p-6 bg-white shadow-md items-center top-0 z-10">
     <a href="/" class="uppercase text-3xl font-bold text-blue-500">sisedu</a>
     <nav>
-        <a href="{{ route('login') }}"
-           class="bg-blue-500 text-white px-3 py-1 cursor-pointer rounded hover:bg-blue-700">Login</a>
-        <a href="{{ route('registro') }}"
-           class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-700 cursor-pointer ml-2">Registrar</a>
+       @guest
+            <a href="{{ route('login') }}"
+            class="bg-blue-500 text-white px-3 py-1 cursor-pointer rounded hover:bg-blue-700">Login</a>
+            <a href="{{ route('registro') }}"
+            class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-700 cursor-pointer ml-2">Registrar</a>
+       @endguest
+       @auth
+            <form action="/logout" method="post">
+                @csrf
+                <a  class="bg-blue-500 text-white px-3 py-1 cursor-pointer rounded hover:bg-blue-700" href="{{route('logout')}}"
+                onclick="event.preventDefault();this.closest('form').submit()">Sair</a>
+            </form>
+       @endauth
     </nav>
 </header>
 @if(session('msg'))
