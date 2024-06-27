@@ -25,7 +25,7 @@ class AuthController extends Controller
             if (auth()->user()->role == 'aluno') {
                 return redirect()->intended('/aluno/dashboardAluno');
             } elseif (auth()->user()->role == 'professor') {
-                return redirect('listarnotas');
+                return redirect('/listarnotas');
             }
         }
     }

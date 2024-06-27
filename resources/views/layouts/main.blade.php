@@ -20,7 +20,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col bg-gray-100">
+<body class="min-h-screen flex flex-col bg-gray-900">
 <header class="flex justify-between p-6 bg-white shadow-md items-center top-0 z-10">
     <a href="/" class="uppercase text-3xl font-bold text-blue-500">sisedu</a>
     <nav>
@@ -49,9 +49,7 @@
         </div>
     </div>
 @endif
-<main class="flex-grow">
-    @yield('content')
-</main>
+@yield('content')
 <footer class="bg-white shadow-md p-5 text-center">
     &copy; Todos os direitos reservados 2024. Equipe: Nome da Equipe. Faculdade de Tecnologia de Jahu
 </footer>

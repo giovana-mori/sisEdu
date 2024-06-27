@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Registro')
 @section('content')
-    <main class="min-h-[80vh] flex justify-center items-center flex-col bg-gray-100">
+    <main class="min-h-[80vh] flex justify-center items-center flex-col ">
         <h1 class="text-2xl mb-6 font-bold text-gray-700">Registro</h1>
         <form class="w-full max-w-sm md:max-w-xl bg-white p-6 rounded-lg shadow-lg mb-2" action="{{ route('registro.post') }}" method="POST">
             @csrf

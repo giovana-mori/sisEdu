@@ -1,11 +1,11 @@
 @extends('layouts.main')
 @section('title', 'dashboard')
 @section('content')
-<main class="min-h-[80vh] flex flex-col bg-gray-100  dark:bg-gray-900 p-2">
+<main class="min-h-[80vh] flex flex-col px-5 py-12">
     <h1 class="text-center my-5">Listar Notas</h1>
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-full">
-        <div class="pb-4 bg-white dark:bg-gray-900">
+        <div class="pb-4">
             <label for="table-search" class="sr-only">Search</label>
             <div class="relative mt-1">
                 <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">

@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Login')
 @section('content')
-    <main class="min-h-[80vh] flex justify-center items-center flex-col bg-gray-100">
+    <main class="min-h-[80vh] flex justify-center items-center flex-col">
         <h1 class="text-2xl mb-6 font-bold text-gray-700">Login</h1>
         <form method="post" action="{{route('login.post')}}" class="w-full max-w-sm bg-white p-6 rounded-lg shadow-lg">
             @csrf
