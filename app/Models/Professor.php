@@ -10,7 +10,7 @@ class Professor extends Model
     use HasFactory;
 
     protected $fillable = [
-        "id",
+        //"id" => o id vai ser gerado no banco de dados,
         "user_id",
         'rm'
     ];

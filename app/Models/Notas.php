@@ -9,7 +9,7 @@ class Notas extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "id",
+        //"id", => o id vai ser gerado no banco de dados
         'aluno_id',
         'A1',
         'A2',
@@ -19,6 +19,7 @@ class Notas extends Model
         'MFA',
         'MFP'
     ];
+
     public function Alunos()
     {
         return $this->belongsTo(Aluno::class);

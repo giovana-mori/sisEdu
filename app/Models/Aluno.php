@@ -9,7 +9,7 @@ class Aluno extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "id",
+        //"id", => id vai ser gerado no banco de dados
         'user_id',
         'ra',
         'cep'
