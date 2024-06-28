@@ -1,14 +1,14 @@
 @extends('layouts.main')
 @section('title', 'Registro')
 @section('content')
-    <main class="min-h-[80vh] flex justify-center items-center flex-col ">
-        <h1 class="text-2xl mb-6 font-bold text-gray-700">Registro</h1>
-        <form class="w-full max-w-sm md:max-w-xl bg-white p-6 rounded-lg shadow-lg mb-2" action="{{ route('registro.post') }}" method="POST">
+    <main class="min-h-[80.9vh] flex justify-center items-center flex-col ">
+        <h1 class="text-4xl my-6 text-gray-100">Registro</h1>
+        <form class="w-full max-w-sm md:max-w-xl bg-gray-700 p-6 rounded-lg shadow-lg mb-" action="{{ route('registro.post') }}" method="POST">
             @csrf
 
             <div class="mb-4 md:flex md:space-x-4">
                 <div class="md:w-1/2">
-                    <label for="nome" class="block text-gray-700 text-sm font-bold mb-2">Nome</label>
+                    <label for="nome" class="block text-gray-100 text-sm font-bold mb-2">Nome</label>
                     <input
                         type="text"
                         id="nome"
@@ -22,7 +22,7 @@
                     @endif
                 </div>
                 <div class="md:w-1/2">
-                    <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                    <label for="email" class="block text-gray-100 text-sm font-bold mb-2">Email</label>
                     <input
                         type="email"
                         id="email"
@@ -38,7 +38,7 @@
             </div>
             <div class="mb-4 md:flex md:space-x-4">
                 <div class="md:w-1/2">
-                    <label for="senha" class="block text-gray-700 text-sm font-bold mb-2">Senha</label>
+                    <label for="senha" class="block text-gray-100 text-sm font-bold mb-2">Senha</label>
                     <input
                         type="password"
                         id="senha"
@@ -51,7 +51,7 @@
                     @endif
                 </div>
                 <div class="md:w-1/2">
-                    <label for="confirma-senha" class="block text-gray-700 text-sm font-bold mb-2">Confirmar senha</label>
+                    <label for="confirma-senha" class="block text-gray-100 text-sm font-bold mb-2">Confirmar senha</label>
                     <input
                         type="password"
                         id="confirma-senha"
@@ -66,7 +66,7 @@
             </div>
             <div class="mb-4 md:flex md:space-x-4">
                 <div class="w-full">
-                    <label for="telefone" class="block text-gray-700 text-sm font-bold mb-2">Telefone</label>
+                    <label for="telefone" class="block text-gray-100 text-sm font-bold mb-2">Telefone</label>
                     <input
                         type="text"
                         id="telefone"
@@ -81,14 +81,14 @@
                 </div>
             </div>
             <div class="mb-6">
-                <label for="tipo-usuario" class="block text-gray-700 text-sm font-bold mb-2">Tipo de Usuário</label>
+                <label for="tipo-usuario" class="block text-gray-100 text-sm font-bold mb-2">Tipo de Usuário</label>
                 <select
                     id="tipo-usuario"
                     name="role"
                     class="border rounded w-full py-1 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     onchange="carregaFormularioEspecifico()"
                 >
-                    <option value="#" class="text-gray-300">--selecione uma opção--</option>
+                    <option value="#" class="text-gray-700">--selecione uma opção--</option>
                     <option value="aluno" class="text-gray-700" {{ old('role') == 'aluno' ? 'selected' : '' }}>Aluno</option>
                     <option value="professor" class="text-gray-700" {{ old('role') == 'professor' ? 'selected' : '' }}>Professor</option>
                 </select>
@@ -100,7 +100,7 @@
                 <!-- Campos específicos serão carregados aqui -->
             </div>
             <div class="flex items-center justify-between">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Registrar
                 </button>
             </div>
@@ -119,7 +119,7 @@
                             type="text"
                             id="ra"
                             name="ra"
-                            class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            class="border rounded w-full py-1 px-3 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="RA"
                             value="{{ old('ra') }}"
                         >
@@ -133,7 +133,7 @@
                         type="text"
                         id="cep"
                         name="cep"
-                        class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        class="border rounded w-full py-1 px-3 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="CEP"
                         value="{{ old('cep') }}"
                         >
@@ -145,12 +145,12 @@
             } else if (tipo === 'professor') {
                 form.innerHTML = `
                     <div class="mb-4">
-                        <label for="rm" class="block text-gray-700 text-sm font-bold mb-2">RM</label>
+                        <label for="rm" class="block text-gray-100 text-sm font-bold mb-2">RM</label>
                         <input
                             type="text"
                             id="rm"
                             name="rm"
-                            class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            class="border rounded w-full py-1 px-3 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="RM"
                             value="{{ old('rm') }}"
                         >
