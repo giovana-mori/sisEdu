@@ -60,6 +60,7 @@
         </div>
         <div id="formularioEspecifico" style="display: none">
             <!-- Campos específicos serão carregados aqui -->
+             
         </div>
         <div class="flex items-center justify-between">
             <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
