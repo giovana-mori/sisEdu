@@ -18,7 +18,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        //'id', =>  o id vai ser gerado no banco de dados
         'nome',
         'email',
         'password',

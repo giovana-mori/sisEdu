@@ -26,7 +26,6 @@ class AlunosController extends Controller
 
     public function show($id)
     {
-        //if role is aluno, show only his data
         $user = Auth::user();
 
         if ($user->role == 'aluno') {
@@ -46,7 +45,6 @@ class AlunosController extends Controller
 
     public function update(Request $request, $id)
     {
-        //update mode aluno and user
         $request->validate([
             'ra' => 'required|string|max:255',
             'nome' => 'required|string|max:255',

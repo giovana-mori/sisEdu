@@ -9,7 +9,6 @@ class Notas extends Model
 {
     use HasFactory;
     protected $fillable = [
-        //"id", => o id vai ser gerado no banco de dados
         'aluno_id',
         'A1',
         'A2',

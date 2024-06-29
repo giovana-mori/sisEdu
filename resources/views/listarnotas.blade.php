@@ -2,7 +2,11 @@
 @section('title', 'Dashboard')
 @section('content')
 <main class="min-h-[80.9vh] flex flex-col px-5 py-2">
+@if (Auth::user()->role === 'professor')
     <h1 class="text-center my-5 text-4xl text-gray-100">Listar Notas</h1>
+    @else
+    <h1 class="text-center my-5 text-4xl text-gray-100">Minhas Notas</h1>
+    @endif
 
     {{-- @if (Auth::user()->role === 'professor')
     <div class="flex items-center bg-gray-700 p-3 mb-2 rounded-md w-56 gap-1.5">
@@ -169,7 +173,6 @@
             const urlencoded = new URLSearchParams();
             inputs.forEach(input => {
                 urlencoded.append(input.name, input.value);
-                //add attribute readonly 
                 input.setAttribute('readonly', 'readonly');
             });
 
@@ -190,7 +193,6 @@
 
             e.innerText = 'Editar';
         } else {
-            //quando clicar, todos inputs da tr referente ao clica, removem o atributo readonly
             const tr = e.parentNode.parentNode;
             const inputs = tr.querySelectorAll('input[data-editable]');
             inputs.forEach(input => {

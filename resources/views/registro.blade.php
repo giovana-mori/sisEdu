@@ -2,8 +2,8 @@
 @section('title', 'Registro')
 @section('content')
 <main class="min-h-[80.9vh] flex justify-center items-center flex-col ">
-    <h1 class="text-4xl my-6 text-gray-700">Registro</h1>
-    <form class="w-full max-w-sm md:max-w-xl bg-gray-700 p-6 rounded-lg shadow-lg mb-" action="{{ route('registro.post') }}" method="POST">
+    <h1 class="text-4xl my-6 text-white">Registro</h1>
+    <form class="w-full max-w-sm md:max-w-xl bg-gray-700 p-6 rounded-lg my-6 shadow-lg mb-" action="{{ route('registro.post') }}" method="POST">
         @csrf
 
         <div class="mb-4 md:flex md:space-x-4">
@@ -47,7 +47,7 @@
                 @endif
             </div>
         </div>
-        <div class="mb-6">
+        <div class="mb-4">
             <label for="tipo-usuario" class="nomeblock text-white text-sm font-bold mb-2">Tipo de Usuário</label>
             <select id="tipo-usuario" required name="role" class="border rounded w-full py-1 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500" onchange="carregaFormularioEspecifico()">
                 <option value="#" class="text-gray-700">--selecione uma opção--</option>
@@ -75,59 +75,69 @@
 
         if (tipo === 'aluno') {
             form.innerHTML = `
-                <div class="mb-4">
-                    <label for="ra" class="block text-white text-sm font-bold mb-2">RA</label>
-                    <input type="text" id="ra" required name="ra" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="RA" value="{{ old('ra') }}">
-                    @if ($errors->has('ra'))
-                        <p class="text-red-500 text-xs mt-2">{{ $errors->first('ra') }}</p>
-                    @endif
+                <div class="mb-4 md:flex md:space-x-4">
+                    <div class="md:w-1/2">
+                        <label for="ra" class="block text-white text-sm font-bold mb-2">RA</label>
+                        <input type="text" id="ra" required name="ra" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="RA" value="{{ old('ra') }}">
+                        @if ($errors->has('ra'))
+                            <p class="text-red-500 text-xs mt-2">{{ $errors->first('ra') }}</p>
+                        @endif
+                    </div>
+                
+                    <div class="md:w-1/2">
+                        <label for="cep" class="block text-white text-sm font-bold mb-2">CEP</label>
+                        <input type="text"  maxlength="9" required id="cep" name="cep" oninput="keyCEP(this)" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="CEP" value="{{ old('cep') }}">
+                        @if ($errors->has('cep'))
+                            <p class="text-red-500 text-xs mt-2">{{ $errors->first('cep') }}</p>
+                        @endif
+                        </div
+                    </div>
                 </div>
-                <div class="mb-4">
-                    <label for="cep" class="block text-white text-sm font-bold mb-2">CEP</label>
-                    <input type="text"  maxlength="9" required id="cep" name="cep" oninput="keyCEP(this)" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="CEP" value="{{ old('cep') }}">
-                    @if ($errors->has('cep'))
-                        <p class="text-red-500 text-xs mt-2">{{ $errors->first('cep') }}</p>
-                    @endif
+                <div class="mb-4 md:flex md:space-x-4">
+                    <div class="md:w-1/2">
+                        <label for="endereco" class="block text-white text-sm font-bold mb-2">Endereço</label>
+                        <input type="text" id="endereco" required name="endereco" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Endereço" value="{{ old('endereco') }}" readonly>
+                        @if ($errors->has('endereco'))
+                            <p class="text-red-500 text-xs mt-2">{{ $errors->first('endereco') }}
+                        </p>
+                        @endif
+                    </div>
+                    <div class="md:w-1/2">
+                        <label for="bairro" class="block text-white text-sm font-bold mb-2">Bairro</label>
+                        <input type="text" id="bairro" required name="bairro" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Bairro" value="{{ old('bairro') }}" readonly>
+                        @if ($errors->has('bairro'))
+                            <p class="text-red-500 text-xs mt-2">{{ $errors->first('bairro') }}</p>
+                        @endif
+                    </div>
                 </div>
-                <div class="mb-4">
-                    <label for="endereco" class="block text-white text-sm font-bold mb-2">Endereço</label>
-                    <input type="text" id="endereco" required name="endereco" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Endereço" value="{{ old('endereco') }}" readonly>
-                    @if ($errors->has('endereco'))
-                        <p class="text-red-500 text-xs mt-2">{{ $errors->first('endereco') }}
-                    </p>
-                    @endif
+                <div class="mb-4 md:flex md:space-x-4">
+                    <div class="md:w-1/2">
+                        <label for="numero" class="block text-white text-sm font-bold mb-2">Numero</label>
+                        <input type="text" id="numero" required name="numero" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Numero" value="{{ old('numero') }}">
+                        @if ($errors->has('numero'))
+                            <p class="text-red-500 text-xs mt-2">{{ $errors->first('numero') }}
+                        @endif
+                    </div>
+                    <div class="md:w-1/2">
+                        <label for="complemento" class="block text-white text-sm font-bold mb-2">Complemento</label>
+                        <input type="text" id="complemento" name="complemento" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Complemento" value="{{ old('complemento') }}">
+                    </div>
                 </div>
-                <div class="mb-4">
-                    <label for="bairro" class="block text-white text-sm font-bold mb-2">Bairro</label>
-                    <input type="text" id="bairro" required name="bairro" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Bairro" value="{{ old('bairro') }}" readonly>
-                    @if ($errors->has('bairro'))
-                        <p class="text-red-500 text-xs mt-2">{{ $errors->first('bairro') }}</p>
-                    @endif
-                </div>
-                <div class="mb-4">
-                    <label for="numero" class="block text-white text-sm font-bold mb-2">Numero</label>
-                    <input type="text" id="numero" required name="numero" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Numero" value="{{ old('numero') }}">
-                    @if ($errors->has('numero'))
-                        <p class="text-red-500 text-xs mt-2">{{ $errors->first('numero') }}
-                    @endif
-                </div>
-                <div class="mb-4">
-                    <label for="complemento" class="block text-white text-sm font-bold mb-2">Complemento</label>
-                    <input type="text" id="complemento" name="complemento" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Complemento" value="{{ old('complemento') }}">
-                </div>
-                <div class="mb-4">
-                    <label for="uf" class="block text-white text-sm font-bold mb-2">Estado</label>
-                    <input type="text" id="uf" required name="uf" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Estado" value="{{ old('uf') }}" readonly>
-                    @if ($errors->has('uf'))
-                        <p class="text-red-500 text-xs mt-2">{{ $errors->first('uf') }}
-                    @endif
-                </div>
-                <div class="mb-4">
-                    <label for="cidade" class="block text-white text-sm font-bold mb-2">Cidade</label>
-                    <input type="text" id="cidade" required name="cidade" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Cidade" value="{{ old('cidade') }}" readonly>
-                    @if ($errors->has('cidade'))
-                        <p class="text-red-500 text-xs mt-2">{{ $errors->first('cidade') }}</p>
-                    @endif
+                <div class="mb-4 md:flex md:space-x-4">
+                    <div class="md:w-1/2">
+                        <label for="uf" class="block text-white text-sm font-bold mb-2">Estado</label>
+                        <input type="text" id="uf" required name="uf" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Estado" value="{{ old('uf') }}" readonly>
+                        @if ($errors->has('uf'))
+                            <p class="text-red-500 text-xs mt-2">{{ $errors->first('uf') }}
+                        @endif
+                    </div>
+                    <div class="md:w-1/2">
+                        <label for="cidade" class="block text-white text-sm font-bold mb-2">Cidade</label>
+                        <input type="text" id="cidade" required name="cidade" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Cidade" value="{{ old('cidade') }}" readonly>
+                        @if ($errors->has('cidade'))
+                            <p class="text-red-500 text-xs mt-2">{{ $errors->first('cidade') }}</p>
+                        @endif
+                    </div>
                 </div>
                 
                 `;
@@ -201,7 +211,6 @@
 
     }
 
-    // Carregar os campos específicos corretamente ao recarregar a página com erros de validação
     document.addEventListener('DOMContentLoaded', function() {
         carregaFormularioEspecifico();
 

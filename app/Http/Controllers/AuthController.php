@@ -22,7 +22,6 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            //check if user role is professor or aluno
             if (Auth::user()->role == 'professor') {
                 return redirect('/listarnotas');
             } else {

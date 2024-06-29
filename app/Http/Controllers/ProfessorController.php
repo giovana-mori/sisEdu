@@ -24,7 +24,6 @@ class ProfessorController extends Controller
         return view('listarnotas', compact('alunos'));
     }
 
-    //cadastrar notas
     public function store(Request $request)
     {
         $aluno = Aluno::where('ra', $request->ra)->first();
