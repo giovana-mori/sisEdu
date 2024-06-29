@@ -19,6 +19,9 @@ Route::post('/registro',[RegistroController::class, 'store'])->name('registro.po
 Route::middleware('auth')->group(function () {
     Route::get('/listarnotas', [ProfessorController::class, 'index'])->name('listarnotas');
     Route::post('/logout',[AuthController::class,'logout'])->name('logout');
+    Route::middleware('professor')->group(function(){
+        Route::delete('/deletar/{id}',[ProfessorController::class, 'destroy']);
+    });
 });
 
 

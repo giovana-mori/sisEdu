@@ -23,5 +23,11 @@ class ProfessorController extends Controller
         
         return view('listarnotas', compact('alunos'));
     }
+
+    public function destroy($id)
+    {
+        Notas::where('id', $id)->first()->delete();
+        return redirect('listarnotas')->with('msg', 'Nota excluida com sucesso');
+    }
     
 }
