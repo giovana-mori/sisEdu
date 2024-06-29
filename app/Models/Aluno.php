@@ -12,7 +12,13 @@ class Aluno extends Model
         //"id", => id vai ser gerado no banco de dados
         'user_id',
         'ra',
-        'cep'
+        'cep',
+        'endereco',
+        'bairro',
+        'numero',
+        'cidade',
+        'uf',
+        'complemento'
     ];
 
     public function user()

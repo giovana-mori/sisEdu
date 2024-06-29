@@ -16,16 +16,22 @@ class RegistroController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:50',
-            'password' => 'required|string|min:8|confirmed',
-            'email' => 'required|email|unique:users,email',
-            'telefone' => 'required|digits_between:10,15',
-            'role' => 'required|in:aluno,professor',
-            'rm' => 'required_if:role,professor|string|max:255',
-            'cep' => 'required_if:role,aluno|string|max:20',
-            'ra' => 'required_if:role,aluno|string|max:255',
-        ],
+        $request->validate(
+            [
+                'name' => 'required|string|max:50',
+                'password' => 'required|string|min:8|confirmed',
+                'email' => 'required|email|unique:users,email',
+                'telefone' => 'required|digits_between:10,15',
+                'role' => 'required|in:aluno,professor',
+                'rm' => 'required_if:role,professor|string|max:255',
+                'cep' => 'required_if:role,aluno|string|max:20',
+                'ra' => 'required_if:role,aluno|string|max:255',
+                'endereco' => 'nullable|string|max:255',
+                'numero' => 'nullable|string|max:255',
+                'bairro' => 'nullable|string|max:255',
+                'cidade' => 'nullable|string|max:255',
+                'estado' => 'nullable|string|max:255',
+            ],
             [
                 'name.required' => 'Preencha o campo nome.',
                 'name.string' => 'O campo nome deve ser uma string.',
@@ -52,14 +58,30 @@ class RegistroController extends Controller
 
                 'ra.required_if' => 'Preencha o campo RA quando a função for aluno.',
                 'ra.max' => 'O campo RA não pode ter mais que 255 caracteres.',
-            ]);
+
+                'endereco.required_if' => 'Preencha o campo endereço quando a função for aluno.',
+                'endereco.max' => 'O campo endereço não pode ter mais que 255 caracteres.',
+                
+                'numero.required_if' => 'Preencha o campo número quando a função for aluno.',
+                'numero.max' => 'O campo número não pode ter mais que 255 caracteres.',
+
+                'bairro.required_if' => 'Preencha o campo bairro quando a função for aluno.',
+                'bairro.max' => 'O campo bairro não pode ter mais que 255 caracteres.',
+
+                'cidade.required_if' => 'Preencha o campo cidade quando a função for aluno.',
+                'cidade.max' => 'O campo cidade não pode ter mais que 255 caracteres.',
+
+                'uf.required_if' => 'Preencha o campo estado quando a função for aluno.',
+                'uf.max' => 'O campo estado não pode ter mais que 255 caracteres.',
+            ]
+        );
 
         $user = User::create([
-           'nome' => $request->name,
-           'email' => $request->email,
-           'password' => $request->password,
-           'telefone' => $request->telefone,
-           'role' => $request->role
+            'nome' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'telefone' => $request->telefone,
+            'role' => $request->role
         ]);
 
         // dump($user->id);
@@ -67,11 +89,17 @@ class RegistroController extends Controller
 
         if ($user->role === 'aluno') {
             Aluno::create([
-                'user_id'=> $user->id,
+                'user_id' => $user->id,
+                'ra' => $request->ra,
                 'cep' => $request->cep,
-                'ra' => $request->ra
+                'endereco' => $request->endereco,
+                'numero' => $request->numero,
+                'bairro' => $request->bairro,
+                'cidade' => $request->cidade,
+                'uf' => $request->uf,
+                'complemento' => $request->complemento
             ]);
-        }elseif ($user->role === 'professor'){
+        } elseif ($user->role === 'professor') {
             Professor::create([
                 'user_id' => $user->id,
                 'rm' => $request->rm
