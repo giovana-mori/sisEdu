@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('notas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('aluno_id');
-            $table->integer('A1');
-            $table->integer('A2');
-            $table->integer('P1');
-            $table->integer('P2');
-            $table->integer('PD');
-            $table->integer('MFP');
-            $table->integer('MFA');
-            $table->foreign('aluno_id')->references('id')->on('alunos');    
+            $table->decimal('A1', 4, 2);
+            $table->decimal('A2', 4, 2);
+            $table->decimal('P1', 4, 2);
+            $table->decimal('P2', 4, 2);
+            $table->decimal('PD', 4, 2);
+            $table->decimal('MFP', 4, 2);
+            $table->decimal('MFA', 4, 2);
+            $table->foreign('aluno_id')->references('id')->on('alunos');
 
             $table->timestamps();
         });

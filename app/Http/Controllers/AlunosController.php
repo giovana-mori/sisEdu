@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AlunosController extends Controller
 {
-    public function home()
+    public function index()
     {
         $user = Auth::user();
 
@@ -24,28 +24,48 @@ class AlunosController extends Controller
         return view('listaralunos', compact('alunos'));
     }
 
-    //cadastrar notas
-    public function save(Request $request)
+    public function show($id)
     {
-        $aluno = Aluno::where('ra', $request->ra)->first();
-        $notas = new Notas();
-        $notas->aluno_id = $aluno->id;
-        $notas->A1 = $request->A1;
-        $notas->A2 = $request->A2;
-        $notas->P1 = $request->P1;
-        $notas->P2 = $request->P2;
-        $notas->PD = $request->PD;
-        $notas->MFA = $request->MFA;
-        $notas->MFP = $request->MFP;
-        $notas->save();
+        //if role is aluno, show only his data
+        $user = Auth::user();
 
-        return redirect()->back()->with('success', 'Notas cadastradas com sucesso!');
+        if ($user->role == 'aluno') {
+            $aluno = Aluno::where('user_id', $user->id)->first();
+        } else {
+            $aluno = Aluno::find($id);
+        }
+
+        return view('editaralunos', compact('aluno'));
     }
-    public function delete($id)
+    public function editar($id)
     {
-        Aluno::where('id', $id)->first()->delete();
-        return redirect('listarnotas')->with('msg', 'Nota excluida com sucesso');
+        $aluno = Aluno::find($id);
+
+        return view('editaralunos', compact('aluno'));
     }
 
-    
+    public function update(Request $request, $id)
+    {
+        //update mode aluno and user
+        $request->validate([
+            'ra' => 'required|string|max:255',
+            'nome' => 'required|string|max:255',
+            'telefone' => 'required|string|max:15',
+            'cep' => 'required|string|max:9',
+            'endereco' => 'required|string|max:255',
+            'bairro' => 'required|string|max:255',
+            'numero' => 'required|string|max:10',
+            'complemento' => 'nullable|string|max:255',
+            'cidade' => 'required|string|max:255',
+            'uf' => 'required|string|max:2',
+        ]);
+
+        $aluno = Aluno::findOrFail($id);
+        $aluno->update($request->all());
+
+        $user = User::find($aluno->user_id);
+        $user->update($request->all());
+
+        return redirect()->back()->with('msg', 'Aluno atualizado com sucesso!');
+    }
 }

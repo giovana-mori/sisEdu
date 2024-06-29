@@ -8,14 +8,14 @@
 
         <div class="mb-4 md:flex md:space-x-4">
             <div class="md:w-1/2">
-                <label for="nome" class="block text-gray-700 text-sm font-bold mb-2">Nome</label>
+                <label for="nome" class="nomeblock text-white text-sm font-bold mb-2">Nome</label>
                 <input type="text" required id="nome" name="name" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nome" value="{{ old('name') }}">
                 @if ($errors->has('name'))
                 <p class="text-red-500 text-xs mt-2">{{ $errors->first('name') }}</p>
                 @endif
             </div>
             <div class="md:w-1/2">
-                <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                <label for="email" class="nomeblock text-white text-sm font-bold mb-2">Email</label>
                 <input type="email" required id="email" name="email" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Email" value="{{ old('email') }}">
                 @if ($errors->has('email'))
                 <p class="text-red-500 text-xs mt-2">{{ $errors->first('email') }}</p>
@@ -24,14 +24,14 @@
         </div>
         <div class="mb-4 md:flex md:space-x-4">
             <div class="md:w-1/2">
-                <label for="senha" class="block text-gray-700 text-sm font-bold mb-2">Senha</label>
+                <label for="senha" class="nomeblock text-white text-sm font-bold mb-2">Senha</label>
                 <input type="password" required id="senha" name="password" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Senha">
                 @if ($errors->has('password'))
                 <p class="text-red-500 text-xs mt-2">{{ $errors->first('password') }}</p>
                 @endif
             </div>
             <div class="md:w-1/2">
-                <label for="confirma-senha" class="block text-gray-700 text-sm font-bold mb-2">Confirmar senha</label>
+                <label for="confirma-senha" class="nomeblock text-white text-sm font-bold mb-2">Confirmar senha</label>
                 <input type="password" required id="confirma-senha" name="password_confirmation" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Confirme a senha">
                 @if ($errors->has('password_confirmation'))
                 <p class="text-red-500 text-xs mt-2">{{ $errors->first('password_confirmation') }}</p>
@@ -40,7 +40,7 @@
         </div>
         <div class="mb-4 md:flex md:space-x-4">
             <div class="w-full">
-                <label for="telefone" class="block text-gray-700 text-sm font-bold mb-2">Telefone</label>
+                <label for="telefone" class="nomeblock text-white text-sm font-bold mb-2">Telefone</label>
                 <input type="text" required id="telefone" name="telefone" class="border rounded w-full py-1 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Telefone" value="{{ old('telefone') }}">
                 @if ($errors->has('telefone'))
                 <p class="text-red-500 text-xs mt-2">{{ $errors->first('telefone') }}</p>
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="mb-6">
-            <label for="tipo-usuario" class="block text-gray-700 text-sm font-bold mb-2">Tipo de Usuário</label>
+            <label for="tipo-usuario" class="nomeblock text-white text-sm font-bold mb-2">Tipo de Usuário</label>
             <select id="tipo-usuario" required name="role" class="border rounded w-full py-1 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500" onchange="carregaFormularioEspecifico()">
                 <option value="#" class="text-gray-700">--selecione uma opção--</option>
                 <option value="aluno" class="text-gray-700" {{ old('role') == 'aluno' ? 'selected' : '' }}>Aluno</option>
@@ -135,7 +135,7 @@
         } else if (tipo === 'professor') {
             form.innerHTML = `
                     <div class="mb-4">
-                        <label for="rm" class="block text-gray-700 text-sm font-bold mb-2">RM</label>
+                        <label for="rm" class="nomeblock text-white text-sm font-bold mb-2">RM</label>
                         <input
                             type="text"
                             id="rm"

@@ -36,8 +36,6 @@ class APIController extends Controller
 
         $aluno = Aluno::where('ra', $request->ra)->first();
 
-        // return Notas::where('aluno_id', $aluno->id)->get();
-
         if (!$aluno) {
             return response()->json(['error' => 'Aluno não encontrado'], 404);
         }
@@ -54,5 +52,28 @@ class APIController extends Controller
             ]
         );
         return response()->json(['success' => 'Notas atualizadas com sucesso'], 200);
+    }
+
+    public function deletarNota($id)
+    {
+        $nota = Notas::find($id);
+
+        if (!$nota) {
+            return response()->json(['error' => 'Nota não encontrada'], 404);
+        }
+
+        $nota->delete();
+        return response()->json(['success' => 'Nota deletada com sucesso'], 200);
+    }
+    public function deletarAluno($id)
+    {
+        $aluno = Aluno::find($id);
+
+        if (!$aluno) {
+            return response()->json(['error' => 'Aluno não encontrado'], 404);
+        }
+
+        $aluno->delete();
+        return response()->json(['success' => 'Aluno deletado com sucesso'], 200);
     }
 }

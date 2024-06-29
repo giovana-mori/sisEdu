@@ -15,6 +15,9 @@
     </div>
     @endif --}}
 
+    @if (count($alunos) === 0)
+    <p class="text-center text-2xl text-gray-100">Nenhum aluno encontrado</p>
+    @else
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-md overflow-hidden">
         <thead class="text-xs text-gray-400 uppercase bg-gray-700">
             <tr>
@@ -48,25 +51,25 @@
                         <!-- <input type="text" name="nome" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="Nome"> -->
                     </td>
                     <td class="p-3">
-                        <input type="number" name="A1" id="a1" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="A1">
+                        <input type="number" name="A1" id="a1" class="border border-gray-300 rounded-md px-2 py-1 w-full max-w-20" required oninput="calcularDadosAutomatico()" placeholder="A1">
                     </td>
                     <td class="p-3">
-                        <input type="number" name="A2" id="a2" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="A2">
+                        <input type="number" name="A2" id="a2" class="border border-gray-300 rounded-md px-2 py-1 w-full max-w-20" required oninput="calcularDadosAutomatico()" placeholder="A2">
                     </td>
                     <td class="p-3">
-                        <input type="number" name="P1" id="p1" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="P1">
+                        <input type="number" name="P1" id="p1" class="border border-gray-300 rounded-md px-2 py-1 w-full max-w-20" required oninput="calcularDadosAutomatico()" placeholder="P1">
                     </td>
                     <td class="p-3">
-                        <input type="number" name="P2" id="p2" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="P2">
+                        <input type="number" name="P2" id="p2" class="border border-gray-300 rounded-md px-2 py-1 w-full max-w-20" required oninput="calcularDadosAutomatico()" placeholder="P2">
                     </td>
                     <td class="p-3">
-                        <input type="number" name="PD" id="pd" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="PD" onchange="calcularDadosAutomatico()">
+                        <input type="number" name="PD" id="pd" class="border border-gray-300 rounded-md px-2 py-1 w-full max-w-20" required onchange="calcularDadosAutomatico()" placeholder="PD">
                     </td>
                     <td class="p-3">
-                        <input type="text" readonly name="MFA" id="mfa" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="MFA">
+                        <input type="text" readonly name="MFA" id="mfa" class="border border-gray-300 rounded-md px-2 py-1 w-full max-w-20" placeholder="MFA">
                     </td>
                     <td class="p-3">
-                        <input type="text" readonly name="MFP" id="mfp" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="MFP">
+                        <input type="text" readonly name="MFP" id="mfp" class="border border-gray-300 rounded-md px-2 py-1 w-full max-w-20" placeholder="MFP">
                     </td>
                     <td class="p-3 flex">
                         <button type="submit" class="bg-emerald-600 font-medium text-white px-3 py-1 cursor-pointer rounded-md hover:bg-emerald-700">Cadastrar</button>
@@ -85,30 +88,30 @@
                     {{$aluno->user->nome}}
                 </td>
                 <td class="p-3">
-                    <input type="number" id="a1_{{$aluno->ra}}" name="A1" class="border border-gray-300 rounded-md px-2 py-1 w-full" oninput="calculateMedias('{{$aluno->ra}}')" value="{{$nota->A1}}" data-editable readonly>
+                    <input type="number" id="a1_{{$aluno->ra}}" name="A1" class="border border-gray-300 rounded-md px-2 py-1 w-full max-w-20" oninput="calculateMedias('{{$aluno->ra}}')" value="{{$nota->A1}}" data-editable readonly>
                 </td>
                 <td class="p-3">
-                    <input type="number" id="a2_{{$aluno->ra}}" name="A2" class="border border-gray-300 rounded-md px-2 py-1 w-full" oninput="calculateMedias('{{$aluno->ra}}')" value="{{$nota->A2}}" data-editable readonly>
+                    <input type="number" id="a2_{{$aluno->ra}}" name="A2" class="border border-gray-300 rounded-md px-2 py-1 w-full max-w-20" oninput="calculateMedias('{{$aluno->ra}}')" value="{{$nota->A2}}" data-editable readonly>
                 </td>
                 <td class="p-3">
-                    <input type="number" id="p1_{{$aluno->ra}}" name="P1" class="border border-gray-300 rounded-md px-2 py-1 w-full" oninput="calculateMedias('{{$aluno->ra}}')" value="{{$nota->P1}}" data-editable readonly>
+                    <input type="number" id="p1_{{$aluno->ra}}" name="P1" class="border border-gray-300 rounded-md px-2 py-1 w-full max-w-20" oninput="calculateMedias('{{$aluno->ra}}')" value="{{$nota->P1}}" data-editable readonly>
                 </td>
                 <td class="p-3">
-                    <input type="number" id="p2_{{$aluno->ra}}" name="P2" class="border border-gray-300 rounded-md px-2 py-1 w-full" oninput="calculateMedias('{{$aluno->ra}}')" value="{{$nota->P2}}" data-editable readonly>
+                    <input type="number" id="p2_{{$aluno->ra}}" name="P2" class="border border-gray-300 rounded-md px-2 py-1 w-full max-w-20" oninput="calculateMedias('{{$aluno->ra}}')" value="{{$nota->P2}}" data-editable readonly>
                 </td>
                 <td class="p-3">
-                    <input type="number" id="pd_{{$aluno->ra}}" name="PD" class="border border-gray-300 rounded-md px-2 py-1 w-full" oninput="calculateMedias('{{$aluno->ra}}')" value="{{$nota->PD}}" data-editable readonly>
+                    <input type="number" id="pd_{{$aluno->ra}}" name="PD" class="border border-gray-300 rounded-md px-2 py-1 w-full max-w-20" oninput="calculateMedias('{{$aluno->ra}}')" value="{{$nota->PD}}" data-editable readonly>
                 </td>
                 <td class="p-3">
-                    <input type="text" id="mfa_{{$aluno->ra}}" name="MFA" class="border border-gray-300 rounded-md px-2 py-1 w-full" value="{{$nota->MFA}}" data-editable readonly>
+                    <input type="text" id="mfa_{{$aluno->ra}}" name="MFA" class="border border-gray-300 rounded-md px-2 py-1 w-full max-w-20" value="{{$nota->MFA}}" data-editable readonly>
                 </td>
                 <td class="p-3">
-                    <input type="text" id="mfp_{{$aluno->ra}}" name="MFP" class="border border-gray-300 rounded-md px-2 py-1 w-full" value="{{$nota->MFP}}" data-editable readonly>
+                    <input type="text" id="mfp_{{$aluno->ra}}" name="MFP" class="border border-gray-300 rounded-md px-2 py-1 w-full max-w-20" value="{{$nota->MFP}}" data-editable readonly>
                 </td>
                 @if (Auth::user()->role === 'professor')
                 <td class="p-3 flex max-w-[170px]">
-                    <a href="#" class="bg-blue-600 font-medium text-white px-3 py-1 cursor-pointer rounded-md hover:bg-blue-700" onclick="enableEdition(this)">Editar</a>
-                    <a href="#" class="bg-red-600 font-medium text-white px-3 py-1 cursor-pointer rounded-md hover:bg-red-700 ms-1" onclick="confirmarDelecao({{ $nota->id }})">Deletar</a>
+                    <button type="button" class="bg-blue-600 font-medium text-white px-3 py-1 cursor-pointer rounded-md hover:bg-blue-700" onclick="enableEdition(this)">Editar</button>
+                    <button type="button" class="bg-red-600 font-medium text-white px-3 py-1 cursor-pointer rounded-md hover:bg-red-700 ms-1" onclick="deletarNota('{{ $nota->id }}')">Deletar</buton>
                 </td>
                 @endif
             </tr>
@@ -116,6 +119,7 @@
             @endforeach
         </tbody>
     </table>
+    @endif
 </main>
 
 <script>
@@ -134,6 +138,7 @@
             document.getElementById('mfp').value = mfp.toFixed(2);
         }
     }
+
 
     function calculateMedias(e) {
         const a1 = parseFloat(document.getElementById(`a1_${e}`).value);
@@ -182,6 +187,8 @@
                     alert(result.success)
                 })
                 .catch((error) => console.error(error));
+
+            e.innerText = 'Editar';
         } else {
             //quando clicar, todos inputs da tr referente ao clica, removem o atributo readonly
             const tr = e.parentNode.parentNode;
@@ -194,8 +201,33 @@
         }
     }
 
+    function deletarNota(id = undefined) {
+        if (!id || id == undefined) {
+            return;
+        }
+
+        let desejaDeletar = confirm("Tem certeza que deseja deletar estas notas?");
+        if (desejaDeletar) {
+            const myHeaders = new Headers();
+            const requestOptions = {
+                method: "DELETE",
+                headers: myHeaders,
+                redirect: "follow"
+            };
+
+            fetch(`/api/notas/${id}`, requestOptions)
+                .then((response) => response.json())
+                .then((result) => {
+                    console.log(result)
+                    alert(result.success);
+                    window.location.reload();
+                })
+                .catch((error) => console.error(error));
+            fetch("/api/notas", requestOptions);
+        }
+    }
+
     function editarNota(id, ra, nome, A1, A2, P1, P2, PD, MFA, MFP) {
-        // Preencher os campos do formulário com os dados da nota
         document.getElementById('a1').value = A1;
         document.getElementById('a2').value = A2;
         document.getElementById('p1').value = P1;
@@ -208,22 +240,5 @@
         form.action = `/update/${id}`;
         form.method = 'PUT';
     }
-    // const myHeaders = new Headers();
-    // const formdata = new FormData();
-    // formdata.append("id_pessoa", "2");
-    // formdata.append("assunto", "TESTE");
-    // formdata.append("descricao", "TESTANDO");
-
-    // const requestOptions = {
-    //     method: "GET",
-    //     headers: myHeaders,
-    //     body: formdata,
-    //     redirect: "follow"
-    // };
-
-    // fetch("http://127.0.0.1:8000/api/alunos", requestOptions)
-    //     .then((response) => response.text())
-    //     .then((result) => console.log(result))
-    //     .catch((error) => console.error(error));
 </script>
 @endsection

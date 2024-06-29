@@ -21,14 +21,21 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect('/listarnotas');
+
+            //check if user role is professor or aluno
+            if (Auth::user()->role == 'professor') {
+                return redirect('/listarnotas');
+            } else {
+                return redirect('/minhasnotas');
+            }
         }
 
         return redirect('login');
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
-        return redirect('login');
+        return redirect('/');
     }
 }
