@@ -17,12 +17,7 @@ Route::get('/registro',[RegistroController::class, 'index'])->name('registro');
 Route::post('/registro',[RegistroController::class, 'store'])->name('registro.post');
 
 Route::middleware('auth')->group(function () {
-    Route::middleware('professor')->get('/listarnotas', [ProfessorController::class, 'index'])->name('listarnotas');
-
-    // Route::get('/dashboard', function () {
-    //     return view('dashboardAluno');
-    // })->name('dashboardAluno');
-
+    Route::get('/listarnotas', [ProfessorController::class, 'index'])->name('listarnotas');
     Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 });
 
