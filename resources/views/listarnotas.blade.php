@@ -44,25 +44,25 @@
                             <input type="text" name="nome" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="Nome">
                         </td>
                         <td class="p-3">
-                            <input type="text" name="A1" id="a1" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="A1">
+                            <input onchange="calculaNotasAutomatico()" type="number" name="A1" id="a1" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="A1">
                         </td>
                         <td class="p-3">
-                            <input type="text" name="A2" id="a2" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="A2">
+                            <input onchange="calculaNotasAutomatico()" type="number" name="A2" id="a2" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="A2">
                         </td>
                         <td class="p-3">
-                            <input type="text" name="P1" id="p1" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="P1">
+                            <input onchange="calculaNotasAutomatico()" type="number" name="P1" id="p1" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="P1">
                         </td>
                         <td class="p-3">
-                            <input type="text" name="P2" id="p2" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="P2">
+                            <input onchange="calculaNotasAutomatico()" type="number" name="P2" id="p2" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="P2">
                         </td>
                         <td class="p-3">
-                            <input type="text" name="PD" id="pd" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="PD" onchange="calcularDadosAutomatico()">
+                            <input onchange="calculaNotasAutomatico()" type="number" name="PD" id="pd" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="PD" onchange="calcularDadosAutomatico()">
                         </td>
                         <td class="p-3">
-                            <input type="text" name="MFA" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="MFA">
+                            <input onchange="calculaNotasAutomatico()" type="number" name="MFA" id="mfa" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="MFA">
                         </td>
-                        <td class="p-3">
-                            <input type="text" name="MFP" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="MFP">
+                        <td onchange="calculaNotasAutomatico()" class="p-3">
+                            <input type="number" name="MFP" id="mfp" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="MFP">
                         </td>
                         <td class="p-3 flex">
                             <button type="submit" class="bg-emerald-600 font-medium text-white px-3 py-1 cursor-pointer rounded-md hover:bg-emerald-700">Cadastrar</button>
