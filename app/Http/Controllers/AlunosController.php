@@ -9,23 +9,23 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ProfessorController extends Controller
+class AlunosController extends Controller
 {
-    public function index()
+    public function home()
     {
         $user = Auth::user();
 
         if ($user->role == 'aluno') {
-            $alunos = Aluno::where('user_id', $user->id)->with(['notas', 'user'])->get();
+            $alunos = Aluno::where('user_id', $user->id)->with(['user'])->get();
         } else {
-            $alunos = Aluno::with(['notas', 'user'])->get();
+            $alunos = Aluno::with(['user'])->get();
         }
 
-        return view('listarnotas', compact('alunos'));
+        return view('listaralunos', compact('alunos'));
     }
 
     //cadastrar notas
-    public function store(Request $request)
+    public function save(Request $request)
     {
         $aluno = Aluno::where('ra', $request->ra)->first();
         $notas = new Notas();
@@ -41,4 +41,11 @@ class ProfessorController extends Controller
 
         return redirect()->back()->with('success', 'Notas cadastradas com sucesso!');
     }
+    public function delete($id)
+    {
+        Aluno::where('id', $id)->first()->delete();
+        return redirect('listarnotas')->with('msg', 'Nota excluida com sucesso');
+    }
+
+    
 }

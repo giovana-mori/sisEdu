@@ -19,7 +19,7 @@
         <thead class="text-xs text-gray-400 uppercase bg-gray-700">
             <tr>
                 <th scope="col" class="p-3">RA</th>
-                <th scope="col" class="p-3"></th>
+                <th scope="col" class="p-3">Nome</th>
                 <th scope="col" class="p-3">A1</th>
                 <th scope="col" class="p-3">A2</th>
                 <th scope="col" class="p-3">P1</th>
@@ -35,7 +35,7 @@
         <tbody>
             @if (Auth::user()->role === 'professor')
             <tr class="border-b bg-gray-800 border-gray-700">
-                <form class="w-full flex flex-wrap" action="{{ route('notas.store') }}" method="POST">
+                <form class="w-full flex flex-wrap" action="{{ route('notas.store') }}" method="POST" id="form">
                     @csrf
                     <td class="p-3">
                         <select class="border border-gray-300 rounded-md px-2 py-1 w-full" name="ra">
@@ -63,7 +63,7 @@
                         <input type="number" name="PD" id="pd" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="PD" onchange="calcularDadosAutomatico()">
                     </td>
                     <td class="p-3">
-                        <input type="texxt" readonly name="MFA" id="mfa" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="MFA">
+                        <input type="text" readonly name="MFA" id="mfa" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="MFA">
                     </td>
                     <td class="p-3">
                         <input type="text" readonly name="MFP" id="mfp" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="MFP">
@@ -78,41 +78,37 @@
             @foreach ($aluno->notas as $nota)
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <th scope="row" class="p-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <input type="hidden" name="ra" value="{{$aluno->ra}}" data-editable />
                     {{$aluno->ra}}
                 </th>
                 <td class="p-3">
                     {{$aluno->user->nome}}
                 </td>
                 <td class="p-3">
-                    {{$nota->A1}}
+                    <input type="number" id="a1_{{$aluno->ra}}" name="A1" class="border border-gray-300 rounded-md px-2 py-1 w-full" oninput="calculateMedias('{{$aluno->ra}}')" value="{{$nota->A1}}" data-editable readonly>
                 </td>
                 <td class="p-3">
-                    {{$nota->A2}}
+                    <input type="number" id="a2_{{$aluno->ra}}" name="A2" class="border border-gray-300 rounded-md px-2 py-1 w-full" oninput="calculateMedias('{{$aluno->ra}}')" value="{{$nota->A2}}" data-editable readonly>
                 </td>
                 <td class="p-3">
-                    {{$nota->P1}}
+                    <input type="number" id="p1_{{$aluno->ra}}" name="P1" class="border border-gray-300 rounded-md px-2 py-1 w-full" oninput="calculateMedias('{{$aluno->ra}}')" value="{{$nota->P1}}" data-editable readonly>
                 </td>
                 <td class="p-3">
-                    {{$nota->P2}}
+                    <input type="number" id="p2_{{$aluno->ra}}" name="P2" class="border border-gray-300 rounded-md px-2 py-1 w-full" oninput="calculateMedias('{{$aluno->ra}}')" value="{{$nota->P2}}" data-editable readonly>
                 </td>
                 <td class="p-3">
-                    {{$nota->PD}}
+                    <input type="number" id="pd_{{$aluno->ra}}" name="PD" class="border border-gray-300 rounded-md px-2 py-1 w-full" oninput="calculateMedias('{{$aluno->ra}}')" value="{{$nota->PD}}" data-editable readonly>
                 </td>
                 <td class="p-3">
-                    {{$nota->MFA}}
+                    <input type="text" id="mfa_{{$aluno->ra}}" name="MFA" class="border border-gray-300 rounded-md px-2 py-1 w-full" value="{{$nota->MFA}}" data-editable readonly>
                 </td>
                 <td class="p-3">
-                    {{$nota->MFP}}
+                    <input type="text" id="mfp_{{$aluno->ra}}" name="MFP" class="border border-gray-300 rounded-md px-2 py-1 w-full" value="{{$nota->MFP}}" data-editable readonly>
                 </td>
                 @if (Auth::user()->role === 'professor')
                 <td class="p-3 flex max-w-[170px]">
-                    <a href="#" class="bg-blue-600 font-medium text-white px-3 py-1 cursor-pointer rounded-md hover:bg-blue-700">Editar</a>
-                    <a href="#" class="bg-red-600 font-medium text-white px-3 py-1 cursor-pointer rounded-md hover:bg-red-700 ms-1">Deletar</a>
-                    <form action="/deletar/{{$nota->id}}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="bg-red-600 font-medium text-white px-3 py-1 cursor-pointer rounded-md hover:bg-red-700 ms-1">Deletar</button>
-                    </form>
+                    <a href="#" class="bg-blue-600 font-medium text-white px-3 py-1 cursor-pointer rounded-md hover:bg-blue-700" onclick="enableEdition(this)">Editar</a>
+                    <a href="#" class="bg-red-600 font-medium text-white px-3 py-1 cursor-pointer rounded-md hover:bg-red-700 ms-1" onclick="confirmarDelecao({{ $nota->id }})">Deletar</a>
                 </td>
                 @endif
             </tr>
@@ -132,11 +128,85 @@
 
         if (!isNaN(a1) && !isNaN(a2) && !isNaN(p1) && !isNaN(p2) && !isNaN(pd)) {
             const mfa = (a1 + a2 + p1 + p2 + pd) / 5;
-            const mfp = (a1 * 0.15 + a2 * 0.15 + p1 * 0.02 + p2 * 0.02 + pd * 0.03) / 5;
+            const mfp = (a1 * 0.15 + a2 * 0.15 + p1 * 0.2 + p2 * 0.2 + pd * 0.3) / 5;
 
             document.getElementById('mfa').value = mfa.toFixed(2);
             document.getElementById('mfp').value = mfp.toFixed(2);
         }
+    }
+
+    function calculateMedias(e) {
+        const a1 = parseFloat(document.getElementById(`a1_${e}`).value);
+        const a2 = parseFloat(document.getElementById(`a2_${e}`).value);
+        const p1 = parseFloat(document.getElementById(`p1_${e}`).value);
+        const p2 = parseFloat(document.getElementById(`p2_${e}`).value);
+        const pd = parseFloat(document.getElementById(`pd_${e}`).value);
+
+        if (!isNaN(a1) && !isNaN(a2) && !isNaN(p1) && !isNaN(p2) && !isNaN(pd)) {
+            const mfa = (a1 + a2 + p1 + p2 + pd) / 5;
+            const mfp = (a1 * 0.15 + a2 * 0.15 + p1 * 0.2 + p2 * 0.2 + pd * 0.3) / 5;
+            document.getElementById(`mfa_${e}`).value = mfa.toFixed(2);
+            document.getElementById(`mfp_${e}`).value = mfp.toFixed(2);
+        }
+    }
+
+    function enableEdition(e) {
+        let hasEdition = [...e.parentNode.parentNode.querySelectorAll('input[data-editable]')].filter(e => {
+            return e.hasAttribute('readonly')
+        });
+
+        if (hasEdition.length == 0) {
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+            const inputs = e.parentNode.parentNode.querySelectorAll('input[data-editable]');
+
+            const urlencoded = new URLSearchParams();
+            inputs.forEach(input => {
+                urlencoded.append(input.name, input.value);
+                //add attribute readonly 
+                input.setAttribute('readonly', 'readonly');
+            });
+
+            const requestOptions = {
+                method: "PUT",
+                headers: myHeaders,
+                body: urlencoded,
+                redirect: "follow"
+            };
+
+            fetch("/api/notas", requestOptions)
+                .then((response) => response.json())
+                .then((result) => {
+                    console.log(result)
+                    alert(result.success)
+                })
+                .catch((error) => console.error(error));
+        } else {
+            //quando clicar, todos inputs da tr referente ao clica, removem o atributo readonly
+            const tr = e.parentNode.parentNode;
+            const inputs = tr.querySelectorAll('input[data-editable]');
+            inputs.forEach(input => {
+                input.removeAttribute('readonly');
+            });
+
+            e.innerText = 'Salvar';
+        }
+    }
+
+    function editarNota(id, ra, nome, A1, A2, P1, P2, PD, MFA, MFP) {
+        // Preencher os campos do formulário com os dados da nota
+        document.getElementById('a1').value = A1;
+        document.getElementById('a2').value = A2;
+        document.getElementById('p1').value = P1;
+        document.getElementById('p2').value = P2;
+        document.getElementById('pd').value = PD;
+        document.getElementById('mfa').value = MFA.toFixed(2);
+        document.getElementById('mfp').value = MFP.toFixed(2);
+
+        const form = document.querySelector('#form');
+        form.action = `/update/${id}`;
+        form.method = 'PUT';
     }
     // const myHeaders = new Headers();
     // const formdata = new FormData();

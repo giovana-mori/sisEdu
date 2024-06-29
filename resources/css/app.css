@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+[data-editable][readonly] {
+    background-color: transparent;
+    border: 0;
+}
