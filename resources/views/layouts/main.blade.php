@@ -44,14 +44,14 @@
     <nav>
        @guest
             <a href="{{ route('login') }}"
-            class="bg-emerald-600 text-white px-3 py-1 cursor-pointer rounded hover:bg-emerald-700">Login</a>
+                class="text-white px-3 py-1 cursor-pointer rounded hover:border">Login</a>
             <a href="{{ route('registro') }}"
-            class="px-3 py-1 bg-emerald-600 text-white rounded hover:bg-emerald-700 cursor-pointer ml-2">Registrar</a>
+                class="text-white px-3 py-1 cursor-pointer rounded hover:border">Registrar</a>
        @endguest
        @auth
             <form action="/logout" method="post">
                 @csrf
-                <a  class="bg-emerald-600 text-white px-3 py-1 cursor-pointer rounded hover:bg-emerald-700" href="{{route('logout')}}"
+                <a  class="text-white px-3 py-1 cursor-pointer rounded hover:border" href="{{route('logout')}}"
                 onclick="event.preventDefault();this.closest('form').submit()">Sair</a>
             </form>
        @endauth
@@ -76,6 +76,21 @@
         let box = document.querySelector('#'+id);
         box.classList.add('subir');
     }
+
+    function calculaNotasAutomatico() {
+    const p1 = parseFloat(document.querySelector('#p1').value) || 0;
+    const p2 = parseFloat(document.querySelector('#p2').value) || 0;
+    const a1 = parseFloat(document.querySelector('#a1').value) || 0;
+    const a2 = parseFloat(document.querySelector('#a2').value) || 0;
+    const pd = parseFloat(document.querySelector('#pd').value) || 0;
+
+    const mfa = (p1 + p2 + a1 + a2 + pd) / 5;
+    const mfp = ((p1 * 0.15) + (p2 * 0.15) + (a1 * 0.2) + (a2 * 0.2) + (pd * 0.3)) / 5;
+
+    document.querySelector('#mfa').value = mfa.toFixed(2);
+    document.querySelector('#mfp').value = mfp.toFixed(2);
+}
+
 </script>
 </body>
 </html>

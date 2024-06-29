@@ -108,6 +108,11 @@
                 <td class="p-3 flex max-w-[170px]">
                     <a href="#" class="bg-blue-600 font-medium text-white px-3 py-1 cursor-pointer rounded-md hover:bg-blue-700">Editar</a>
                     <a href="#" class="bg-red-600 font-medium text-white px-3 py-1 cursor-pointer rounded-md hover:bg-red-700 ms-1">Deletar</a>
+                    <form action="/deletar/{{$nota->id}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-red-600 font-medium text-white px-3 py-1 cursor-pointer rounded-md hover:bg-red-700 ms-1">Deletar</button>
+                    </form>
                 </td>
                 @endif
             </tr>

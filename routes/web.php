@@ -27,6 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/listarnotas', [ProfessorController::class, 'store'])->name('notas.store');
     
     Route::post('/logout',[AuthController::class,'logout'])->name('logout');
+    Route::middleware('professor')->group(function(){
+        Route::delete('/deletar/{id}',[ProfessorController::class, 'destroy']);
+    });
 });
 
 

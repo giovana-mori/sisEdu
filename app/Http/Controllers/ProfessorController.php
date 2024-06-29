@@ -15,18 +15,19 @@ class ProfessorController extends Controller
     {
         $user = Auth::user();
 
-        if($user->role == 'aluno'){
+        if ($user->role == 'aluno') {
             $alunos = Aluno::where('user_id', $user->id)->with(['notas', 'user'])->get();
-        }else{
+        } else {
             $alunos = Aluno::with(['notas', 'user'])->get();
         }
-        
+
         return view('listarnotas', compact('alunos'));
     }
 
     //cadastrar notas
-    public function store(Request $request){
-        $aluno = Aluno::where('ra', $request->ra)->first();  
+    public function store(Request $request)
+    {
+        $aluno = Aluno::where('ra', $request->ra)->first();
         $notas = new Notas();
         $notas->aluno_id = $aluno->id;
         $notas->A1 = $request->A1;
@@ -40,5 +41,9 @@ class ProfessorController extends Controller
 
         return redirect()->back()->with('success', 'Notas cadastradas com sucesso!');
     }
-    
+    public function destroy($id)
+    {
+        Notas::where('id', $id)->first()->delete();
+        return redirect('listarnotas')->with('msg', 'Nota excluida com sucesso');
+    }
 }
