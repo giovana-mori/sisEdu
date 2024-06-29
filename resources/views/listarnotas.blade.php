@@ -35,7 +35,7 @@
         <tbody>
             @if (Auth::user()->role === 'professor')
                 <tr class="border-b bg-gray-800 border-gray-700">
-                    <form class="w-full flex flex-wrap" action="/cadastrar-aluno" method="POST">
+                    <form class="w-full flex flex-wrap" action="" method="POST">
                         @csrf
                         <td class="p-3">
                             <input type="text" name="ra" class="border border-gray-300 rounded-md px-2 py-1 w-full" placeholder="RA">
